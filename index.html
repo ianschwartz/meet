@@ -6,11 +6,22 @@
   </head>
 
   <body>
-    <ul id="messages"></ul>
+    <!--- NICKNAME MODAL WINDOW --->
+    <header>
+      <div id="title"><h1>Meet</h1></div>
+      <div id='nick-form'>
+        <input id="nick" placeholder="Choose a nickname."><button id="nick-submit">Submit</button>
+      </div>
+    </header>
+    <div id="readout">
+      <ul id="messages">
+        <li class="system-message">You have a joined a public room. Please choose a nickname to begin.</li>
+      </ul>
+    </div>
     <div id='form'>
-      <input id="nick" placeholder="Choose a nickname"><br/><br/>
-
-      <input id="m" autocomplete="off" /><button id='submit'>Submit</button></div>
+      <input id="input" autocomplete="off" disabled/><button id='submit' disabled>Submit</button>
+    </div>
+    
 
 
 	    <script src="/socket.io/socket.io.js"></script>

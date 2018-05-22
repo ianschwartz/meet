@@ -27,3 +27,12 @@ body {
   body .system-message {
     font-weight: bold;
     color: darkred; }
+  body header {
+    background: lightblue;
+    display: flex; }
+    body header #title {
+      width: 75%; }
+    body header #nick-form {
+      display: flex;
+      align-items: center;
+      width: 25%; }

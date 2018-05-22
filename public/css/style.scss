@@ -18,6 +18,7 @@ body {
       border: none; padding: 10px;
     }
     #messages {
+      display: flex;
       list-style-type: none;
       margin: 0; padding: 0;
       li { 
@@ -31,5 +32,17 @@ body {
   .system-message {
     font-weight: bold;
     color: darkred;
+  }
+  header {
+    background: lightblue;
+    display: flex;
+    #title {
+      width: 75%;
+    }
+    #nick-form {
+      display: flex;
+      align-items: center;
+      width: 25%;
+    }
   }
 }

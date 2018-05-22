@@ -5,42 +5,63 @@ function User(nickname = '_' + Math.random().toString(36).substr(2, 9)) {
 const user = new User();
 
 let socket = io();
-let m = document.getElementById("m");
-let nick = document.getElementById("nick");
+
+// selectors for the form to enter messagese
+let input = document.getElementById("input");
 let submit = document.getElementById('submit');
 let inputLine = document.getElementById('inputLine');
-let readout = document.getElementById('messages');
+
+// Readout of mesages
+let messages = document.getElementById('messages');
+
+// selectors for the nickname selection form
+let nick = document.getElementById("nick");
+let nickSubmit = document.getElementById("nick-submit");
 
 
-m.addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-      sendMessage(m.value, user);
-    }
+input.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    sendMessage(input.value, user);
+  }
 });
 
 nick.addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-      user.nickname = nick.value;
-      displaySystemMessage(`Your username is now: ${user.nickname}.`)
-      nick.style.display = "none";
-    }
+  if (event.key === "Enter") {
+    selectNickName();
+  }
 });
 
+
+nickSubmit.addEventListener("click", (event) => {
+  if (event.key === "Enter") {
+    selectNickName();
+  }
+})
+
+function selectNickName() {
+  if (nick.value) {
+    user.nickname = nick.value;
+    displaySystemMessage(`Your username is now: ${user.nickname}.`);
+    document.getElementById("nick-form").style.display = "none";
+    input.disabled = false;
+    submit.disabled = false;
+  }
+}
 
 function sendMessage(msg, user) {
   console.log(msg);
 	socket.emit("chat message", msg, user);
   displayMessage(user, msg)
-	m.value = "";
+	input.value = "";
 	return false;
 }
 
 function displayMessage(user, msg) {
-  readout.innerHTML += `<li>${user.nickname} said: ${msg}</li>`;
+  messages.innerHTML = `<li>${user.nickname} said: ${msg}</li>` + messages.innerHTML;
 }
 
 function displaySystemMessage(msg) {
-  readout.innerHTML += `<li class='system-message'>${msg}`
+  messages.innerHTML = `<li class='system-message'>${msg}` + messages.innerHTML;
 }
 
 socket.on('connect message', (msg) => {
